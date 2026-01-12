@@ -4,6 +4,8 @@
 
 Turn your 8K context Gemma or 16K Phi into a model with **11 million+ token memory** — with 100% retrieval accuracy and sub-millisecond latency.
 
+![Infinite Context Architecture](docs/images/fig01_infinite_context.jpeg)
+
 ---
 
 ## Try It NOW (Pick Your Favorite)
@@ -49,22 +51,15 @@ cargo build --release
 
 ## Real Benchmarks
 
-```
-╔══════════════════════════════════════════════════════════════════╗
-║               INFINITE CONTEXT PERFORMANCE                       ║
-╠══════════════════════════════════════════════════════════════════╣
-║  100,000 chunks (3M tokens):    0.51ms query latency             ║
-║  375,000 chunks (11M tokens):   ~28ms query latency              ║
-║  Retrieval accuracy:            100%                             ║
-║  Build time (100K chunks):      847ms                            ║
-╚══════════════════════════════════════════════════════════════════╝
-```
+![Complexity Comparison](docs/images/fig04_complexity_comparison_infinite_context.jpeg)
 
 | Model | Native Context | With HAT | Extension |
 |-------|---------------|----------|-----------|
 | gemma3:1b | 8K | 11.3M+ | **1,413x** |
 | phi4 | 16K | 11.3M+ | **706x** |
 | llama3.2 | 8K | 11.3M+ | **1,413x** |
+
+![Benchmark Results](docs/images/fig11_benchmark_results_infinite_context.jpeg)
 
 ---
 
@@ -76,14 +71,11 @@ Local models like Gemma 3 (8K) and Phi 4 (16K) are powerful — but they forget 
 
 **Hierarchical Attention Tree (HAT)** — exploits the natural hierarchy of conversations:
 
-```
-Index
- └── Session (conversation boundary)
-      └── Document (topic grouping)
-           └── Chunk (individual message)
-```
+![HAT Tree Structure](docs/images/fig02_infinite_context.jpeg)
 
 Instead of searching all chunks O(n), HAT does O(log n) beam search through the hierarchy — giving **sub-millisecond queries** on millions of tokens with **100% accuracy**.
+
+![Beam Search Visualization](docs/images/fig03_beam_search_infinite_context.jpeg)
 
 ---
 
@@ -210,12 +202,16 @@ maturin develop --release
 
 Big AI companies charge $20+/month for extended context. Cloud APIs cost money per token. Your data goes to their servers.
 
+![Local Privacy](docs/images/fig12_privacy_infinite_context.jpeg)
+
 **Infinite Context is different:**
 - **Free**: Runs on your hardware
 - **Private**: Nothing leaves your machine
 - **Unlimited**: No token limits
 - **Accurate**: 100% retrieval (not 70% RAG)
 - **Fast**: Sub-millisecond queries
+
+![Model Compatibility](docs/images/fig13_compatability_proven_infinite_context.jpeg)
 
 **Democratized AI memory. Everyone deserves infinite context.**
 
