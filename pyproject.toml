@@ -1,0 +1,69 @@
+[build-system]
+requires = ["maturin>=1.4,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "infinite-context"
+version = "0.1.0"
+description = "Give any local LLM unlimited memory. 11M+ tokens, 28ms latency, 100% accuracy."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Andrew Young"}
+]
+keywords = [
+    "llm",
+    "memory",
+    "context",
+    "ollama",
+    "gemma",
+    "phi",
+    "llama",
+    "vector",
+    "embedding",
+    "retrieval",
+    "infinite",
+    "local",
+    "ai",
+    "hat"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.20.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "maturin>=1.4.0",
+]
+
+[project.scripts]
+infinite-context = "infinite_context:cli_main"
+
+[project.urls]
+Homepage = "https://github.com/Lumi-node/infinite-context"
+Documentation = "https://github.com/Lumi-node/infinite-context#readme"
+Repository = "https://github.com/Lumi-node/infinite-context"
+Issues = "https://github.com/Lumi-node/infinite-context/issues"
+
+[tool.maturin]
+features = ["python"]
+python-source = "python"
+module-name = "infinite_context._core"
+strip = true

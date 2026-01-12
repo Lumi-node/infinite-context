@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  rust:
+    name: Rust Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Run tests
+        run: cargo test
+
+      - name: Run benchmark
+        run: ./target/release/infinite-context bench --chunks 10000
+
+  python:
+    name: Python Bindings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install maturin pytest sentence-transformers
+
+      - name: Build Python wheel
+        run: |
+          cd python
+          maturin build --release
+
+      - name: Install and test
+        run: |
+          pip install target/wheels/*.whl
+          python -c "from infinite_context import HatIndex; print('Import OK')"
+
+  gradio:
+    name: Gradio App Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r huggingface-space/requirements.txt
+
+      - name: Test Gradio app
+        run: |
+          cd huggingface-space
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          from app import HATIndex, CONVERSATIONS
+          import numpy as np
+
+          # Test HAT implementation
+          idx = HATIndex(dims=384)
+          idx.new_session()
+          idx.new_document()
+          idx.add(np.random.rand(384), 'test', {})
+          results = idx.search(np.random.rand(384), k=1)
+          print('HAT test passed')
+          "

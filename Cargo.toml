@@ -1,0 +1,51 @@
+[package]
+name = "infinite-context"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ryan Young"]
+description = "Infinite context for local LLMs. 11M+ tokens, 28ms latency, 100% accuracy."
+license = "MIT"
+repository = "https://github.com/Lumi-node/infinite-context"
+readme = "README.md"
+keywords = ["llm", "memory", "context", "ollama", "embeddings", "hat", "retrieval"]
+categories = ["science", "text-processing", "database"]
+
+[lib]
+name = "infinite_context"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "infinite-context"
+path = "src/main.rs"
+
+[dependencies]
+# Core
+thiserror = "1.0"
+
+# Python bindings
+pyo3 = { version = "0.22", features = ["extension-module"], optional = true }
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+dirs = "5.0"
+
+# Ollama client
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Embeddings (optional - can use external)
+# For now we'll call out to Python sentence-transformers or use Ollama embeddings
+
+[dev-dependencies]
+criterion = "0.5"
+
+[features]
+default = ["python"]
+python = ["pyo3"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3

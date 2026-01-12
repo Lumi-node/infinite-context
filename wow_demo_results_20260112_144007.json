@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-01-12T14:40:07.550026",
+  "config": {
+    "total_chunks": 100000,
+    "embedding_dims": 384,
+    "ollama_host": "http://localhost:11434",
+    "model": "gemma3:1b"
+  },
+  "index_stats": {
+    "chunks": 100000,
+    "sessions": 1000,
+    "documents": 10000,
+    "build_time_s": 1.0144708156585693,
+    "estimated_tokens": 3000000
+  },
+  "needle_tests": [
+    {
+      "needle_id": "NEEDLE_ALPHA_7392",
+      "position": 15000,
+      "question": "What accuracy did Project PHOENIX achieve on the QUANTUM-LEAP benchmark?",
+      "retrieval_time_ms": 1.116037368774414,
+      "needle_found": false,
+      "needle_rank": -1
+    },
+    {
+      "needle_id": "NEEDLE_BETA_4821",
+      "position": 42000,
+      "question": "What was the optimal learning rate for the HYPERION model?",
+      "retrieval_time_ms": 1.0972023010253906,
+      "needle_found": false,
+      "needle_rank": -1
+    },
+    {
+      "needle_id": "NEEDLE_GAMMA_9156",
+      "position": 78000,
+      "question": "What is the exponential degradation coefficient for attention span after 128K tokens?",
+      "expected_answer": "0.0023",
+      "retrieval_time_ms": 0.7879734039306641,
+      "needle_found": true,
+      "needle_rank": 1,
+      "llm_response": "0.0023",
+      "llm_time_ms": 115.09966850280762,
+      "answer_correct": true
+    },
+    {
+      "needle_id": "NEEDLE_DELTA_2847",
+      "position": 95000,
+      "question": "How long did ATLAS-9 take to complete training?",
+      "retrieval_time_ms": 1.12152099609375,
+      "needle_found": false,
+      "needle_rank": -1
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+# Infinite Context - Complete Local Setup
+#
+# Start everything:  docker-compose up -d
+# Chat:              docker-compose exec infinite-context infinite-context chat
+# Benchmark:         docker-compose exec infinite-context infinite-context bench
+#
+# This gives you:
+#   - Ollama running with your chosen model
+#   - Infinite Context CLI ready to use
+#   - Persistent memory storage
+
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # GPU support (uncomment for NVIDIA)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  infinite-context:
+    build: .
+    container_name: infinite-context
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      - memory_data:/app/memory
+    stdin_open: true
+    tty: true
+    command: >
+      sh -c "
+        echo 'Waiting for Ollama...' &&
+        sleep 5 &&
+        echo 'Pulling gemma3:1b model...' &&
+        curl -s http://ollama:11434/api/pull -d '{\"name\":\"gemma3:1b\"}' &&
+        echo 'Ready! Run: docker-compose exec infinite-context infinite-context chat' &&
+        tail -f /dev/null
+      "
+
+volumes:
+  ollama_data:
+    name: infinite-context-ollama
+  memory_data:
+    name: infinite-context-memory

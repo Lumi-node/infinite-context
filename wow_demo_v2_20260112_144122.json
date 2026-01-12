@@ -1,0 +1,42 @@
+{
+  "config": {
+    "total_chunks": 100000,
+    "ollama_host": "http://localhost:11434",
+    "model": "gemma3:1b"
+  },
+  "stats": {
+    "chunks": 100000,
+    "tokens": 3000000
+  },
+  "results": [
+    {
+      "needle_id": "ML_ACCURACY_NEEDLE",
+      "found": false,
+      "rank": -1,
+      "correct": false,
+      "search_ms": 1.0213851928710938
+    },
+    {
+      "needle_id": "ARCHITECTURE_LATENCY_NEEDLE",
+      "found": false,
+      "rank": -1,
+      "correct": false,
+      "search_ms": 0.9629726409912109
+    },
+    {
+      "needle_id": "DATABASE_SCALING_NEEDLE",
+      "found": false,
+      "rank": -1,
+      "correct": false,
+      "search_ms": 0.7367134094238281
+    },
+    {
+      "needle_id": "KUBERNETES_PODS_NEEDLE",
+      "found": true,
+      "rank": 1,
+      "correct": false,
+      "search_ms": 0.6632804870605469,
+      "llm_ms": 115.87214469909668
+    }
+  ]
+}

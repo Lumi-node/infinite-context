@@ -1,0 +1,73 @@
+{
+  "config": {
+    "sessions": 500,
+    "docs_per_session": 5,
+    "chunks_per_doc": 10,
+    "ollama_host": "http://localhost:11434",
+    "model": "gemma3:1b"
+  },
+  "total_tokens": 750000,
+  "results": [
+    {
+      "question": "What did we do to fix the React error about undefined properties?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5364418029785156
+    },
+    {
+      "question": "How much did we speed up the Python data processing script?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": false,
+      "search_ms": 0.5552768707275391
+    },
+    {
+      "question": "What was causing the Kubernetes pods to crash?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5419254302978516
+    },
+    {
+      "question": "How long was the downtime during the PostgreSQL migration?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5357265472412109
+    },
+    {
+      "question": "What rate limit did we set for the new API?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5388259887695312
+    },
+    {
+      "question": "What F1 score did the sentiment model achieve after fine-tuning?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5393028259277344
+    },
+    {
+      "question": "What password hashing algorithm did we upgrade to?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.6732940673828125
+    },
+    {
+      "question": "How much did we reduce the frontend build time?",
+      "found_conv": true,
+      "rank": 1,
+      "has_detail": true,
+      "search_ms": 0.5450248718261719
+    }
+  ],
+  "summary": {
+    "found_rate": 1.0,
+    "detail_rate": 0.875,
+    "avg_search_ms": 0.5582273006439209
+  }
+}
